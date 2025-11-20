@@ -2,7 +2,7 @@
   color: #18ab0a;
 }
 .ts {
-  color: red;
+  color: rgb(248, 0, 0);
 }
 /* BASIC RESET */
 * {
@@ -1531,6 +1531,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
