@@ -148,6 +148,28 @@
     }
 }
 
+/* CLOSE BUTTON IN SIDE MENU */
+.close-btn {
+font-size: 24px;          /* Bigger for visibility */
+cursor: pointer;
+margin-bottom: 30px;      /* Space from menu links */
+display: inline-block;
+color: #111;              /* Matches menu text */
+transition: color 0.3s;
+}
+
+.close-btn:hover {
+color: #ff4d4d;           /* Red on hover for better UX */
+}
+
+/* OPTIONAL: POSITION FIX FOR SMALL SCREENS */
+@media (max-width: 767px) {
+.side-menu.open .close-btn {
+position: absolute;
+top: 20px;
+right: 20px;
+}
+}
 
 /* ---------------NAVBAR CSS Ends------------*/
 
@@ -1504,6 +1526,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
