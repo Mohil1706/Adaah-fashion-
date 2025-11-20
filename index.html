@@ -13,22 +13,20 @@
 <body>
 <header class="navbar">
 
-    <!-- HAMBURGER LEFT -->
-    <div class="hamburger" onclick="toggleMenu()">☰</div>
+    <!-- TOP ROW: HAMBURGER + LOGO + ICONS -->
+    <div class="nav-top">
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
 
-    <!-- LOGO CENTER -->
-    <div class="nav-left">
-        <img src="images/ad1.png" alt="Logo" class="logo-img">
-        <h1 class="logo">ADAAH</h1>
+        <div class="logo-center">
+            <img src="images/ad1.png" class="logo-img">
+            <h1 class="logo">ADAAH</h1>
+        </div>
+
+        <div class="nav-right">
+            <a href="cart.html" class="icon">🛒</a>
+            <a href="account.html" class="icon">👤</a>
+        </div>
     </div>
-
-    <!-- NAV MENU -->
-    <nav class="nav-links" id="navMenu">
-        <a href="tshirt.html"><b>T-Shirt</b></a>
-        <a href="hoodies.html"><b>Hoodies</b></a>
-        <a href="contact.html"><b>Contact Us</b></a>
-        <a href="about.html"><b>About Us</b></a>
-    </nav>
 
     <!-- SEARCH BAR -->
     <div class="nav-center">
@@ -38,21 +36,21 @@
         </div>
     </div>
 
-    <!-- RIGHT ICONS -->
-    <div class="nav-right">
-        <a href="cart.html" class="icon">🛒</a>
-        <a href="account.html" class="icon">👤</a>
-    </div>
+    <!-- SLIDE MENU -->
+    <nav class="side-menu" id="navMenu">
+        <a href="tshirt.html"><b>T-Shirt</b></a>
+        <a href="hoodies.html"><b>Hoodies</b></a>
+        <a href="contact.html"><b>Contact Us</b></a>
+        <a href="about.html"><b>About Us</b></a>
+    </nav>
 
 </header>
 
 <script>
 function toggleMenu() {
-    const menu = document.getElementById("navMenu");
-    menu.classList.toggle("mobile-open");
+    document.getElementById("navMenu").classList.toggle("open");
 }
 </script>
-
 
 <section class="hero-section">
   <div class="hero-text">
@@ -280,3 +278,4 @@ function toggleMenu() {
 
 </body>
 </html>
+
