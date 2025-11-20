@@ -34,7 +34,6 @@
     flex-direction: column;
     align-items: center;
     margin-left: -20px; /* optical balance */
-    
     padding-left: 55px;
 
 }
@@ -1529,6 +1528,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
