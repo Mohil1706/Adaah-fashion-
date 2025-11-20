@@ -1,6 +1,9 @@
 .del{
   color: #18ab0a;
 }
+.ts {
+  color: red;
+}
 /* BASIC RESET */
 * {
     margin: 0;
@@ -1528,6 +1531,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
