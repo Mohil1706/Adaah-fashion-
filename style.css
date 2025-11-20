@@ -1379,10 +1379,7 @@ label:hover img {
         height: auto;
     }
 
-    .buy-now {
-        width: 100%;
-        text-align: center;
-    }
+    
 }
 
 /* ----------- Tablets & Large Phones 768px ↓ ------------- */
@@ -1445,7 +1442,7 @@ label:hover img {
     }
 
     .buy-now {
-        width: 100%;
+        
         padding: 12px;
         font-size: 16px;
     }
@@ -1528,6 +1525,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
