@@ -1,3 +1,6 @@
+.del{
+  color: #18ab0a;
+}
 /* BASIC RESET */
 * {
     margin: 0;
@@ -1271,7 +1274,7 @@ label:hover img {
 }
 
 .discount {
-    color: #89b28b;
+    color: #18ab0a;
     margin-left: 10px;
     font-weight: bold;
 }
@@ -1525,6 +1528,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
