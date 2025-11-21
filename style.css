@@ -426,7 +426,7 @@ right: 20px;
 
 
 
-product-cards {
+.product-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 25px;
@@ -1557,6 +1557,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
