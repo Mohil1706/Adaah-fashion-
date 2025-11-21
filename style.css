@@ -539,6 +539,38 @@ right: 20px;
   background-color: #f5f5f5;
 }
 
+@media (max-width: 380px) {
+  .product-cards {
+    grid-template-columns: repeat(2, 1fr);  /* still 2 cards per row */
+    gap: 10px;                               /* tighter spacing for tiny screens */
+    padding: 12px;
+  }
+
+  .card {
+    padding: 10px;
+    border-radius: 10px;
+  }
+
+  .card img {
+    aspect-ratio: 1 / 1;   /* keeps images square so 2-cards fit nicely */
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  .card h3 {
+    font-size: 14px;
+  }
+
+  .price {
+    font-size: 16px;
+  }
+
+  .add-to-cart {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+}
+
 /* ========== RESPONSIVE TWEAKS ========== */
 
 /* MOBILE: two cards per row on narrow phones (<= 600px) */
@@ -1565,6 +1597,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
