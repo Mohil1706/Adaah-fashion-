@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search Results</title>
+<style>
+body {
+    font-family: 'Inter', sans-serif;
+    padding: 20px;
+}
+h2 {
+    margin-bottom: 20px;
+}
+.product-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+/* Card styling */
+.card {
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+/* Image */
+.card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Product title */
+.card h3 a {
+    font-size: 18px;
+    font-weight: 600;
+    color: #222;
+    text-decoration: none;
+    display: block;
+    margin: 6px 0;
+}
+
+/* Rating */
+.rating {
+    font-size: 16px;
+    color: #f5a623;
+}
+
+/* Price */
+.price {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Button */
+.card button,
+.card a.buy-btn {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 28px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: auto;
+    transition: 0.3s ease;
+}
+
+.card button:hover,
+.card a.buy-btn:hover {
+    background-color: #444;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .product-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media (max-width: 380px) {
+    .product-cards {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+}
+
+</style>
+</head>
+<body>
+
+<h2>Search Results</h2>
+<div class="product-cards" id="results"></div>
+
+<script>
+// Product data
+const products = [
+    { 
+        name: "Stylish Jacket", price: 299, img: "images/o1.jpg", 
+        rating: "⭐⭐⭐⭐", 
+        keywords: ["jacket","stylish","coat","outerwear"]
+    },
+    { 
+        name: "Casual Shirt", price: 399, img: "images/o2.jpg", 
+        rating: "⭐⭐⭐⭐⭐", 
+        keywords: ["shirt","casual","top","tee"]
+    },
+    { 
+        name: "Summer Dress", price: 499, img: "images/o3.jpg", 
+        rating: "⭐⭐⭐⭐", 
+        keywords: ["dress","summer","frock","women"]
+    },
+    { 
+        name: "Denim Jeans", price: 399, img: "images/o4.jpg", 
+        rating: "⭐⭐⭐⭐⭐", 
+        keywords: ["jeans","denim","pants","bottoms"]
+    }
+];
+
+// Get query from URL
+const params = new URLSearchParams(window.location.search);
+const query = params.get('q')?.toLowerCase().trim() || '';
+
+const resultsContainer = document.getElementById('results');
+
+// Filter products based on name or keywords
+const filtered = products.filter(product => {
+    return product.name.toLowerCase().includes(query) ||
+           product.keywords.some(k => k.includes(query));
+});
+
+// Display results
+if(filtered.length > 0){
+    filtered.forEach(p => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <img src="${p.img}" alt="${p.name}">
+            <h3><a href="detail.html">${p.name}</a></h3>
+            <div class="rating">${p.rating}</div>
+            <p class="price">₹${p.price}</p>
+            <a class="buy-btn" href="payment.html">Buy Now</a>
+        `;
+        resultsContainer.appendChild(card);
+    });
+} else {
+    resultsContainer.innerHTML = `<p>No results found for "<strong>${query}</strong>"</p>`;
+}
+</script>
+
+</body>
+</html>
