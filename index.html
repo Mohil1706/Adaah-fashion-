@@ -30,11 +30,27 @@
 
     <!-- SEARCH BAR -->
     <div class="nav-center">
-        <div class="search-box">
-            <input type="text" placeholder="Search for products...">
-            <span class="search-icon">🔍</span>
-        </div>
+    <div class="search-box">
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Search for products...">
+            <button type="submit" class="search-icon">🔍</button>
+        </form>
     </div>
+</div>
+
+<script>
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+
+searchForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const query = searchInput.value.trim();
+    if(query) {
+        // Redirect to search results page with query as URL param
+        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+    }
+});
+</script>
 
     <!-- SLIDE MENU -->
     <nav class="side-menu" id="navMenu"> <div class="close-btn" onclick="toggleMenu()">← Close</div> <a href="tshirt.html"><b>T-Shirt</b></a> <a href="hoodies.html"><b>Hoodies</b></a> <a href="contact.html"><b>Contact Us</b></a> <a href="about.html"><b>About Us</b></a> </nav>
@@ -273,6 +289,7 @@ function toggleMenu() {
 
 </body>
 </html>
+
 
 
 
