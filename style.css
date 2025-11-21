@@ -426,97 +426,98 @@ right: 20px;
 
 
 
-
-a {
-    text-decoration: none;
-    color: black;
+/* Reset box-sizing to avoid layout surprises */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
+/* CONTAINER */
 .product-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
   padding: 40px 20px;
   max-width: 1200px;
   margin: 0 auto;
   font-family: 'Inter', sans-serif;
-  text-decoration: none;
 }
 
+/* CARD */
 .card {
   background: #fff;
   border: 1px solid #eee;
-  border-radius: 10px;
-  padding: 20px;
+  border-radius: 12px;
+  padding: 16px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  text-decoration: none;
+  gap: 12px;
+  min-height: 380px;           /* keep consistent heights so buttons align */
 }
 
+/* IMAGE - consistent aspect and responsive */
 .card img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  aspect-ratio: 4 / 3;         /* keeps uniform image heights */
   object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }
 
+/* TITLE & LINK */
 .card h3 {
   font-size: 18px;
   font-weight: 600;
-  color: #222;
   margin: 0;
+  line-height: 1.2;
+}
+
+.card h3 a {
+  color: inherit;
   text-decoration: none;
+  display: block;              /* makes whole title clickable and keeps spacing consistent */
+  padding: 4px 0;
 }
 
+/* RATING */
 .rating {
-  font-size: 16px;
-  color: #f5a623; /* gold star color */
+  font-size: 15px;
+  color: #f5a623;
+  margin-top: 2px;
 }
 
+/* PRICE */
 .price {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
-  color: #000;
+  color: #111;
+  margin: 6px 0 12px;
 }
 
+/* BUTTON */
 .add-to-cart {
   background-color: #000;
   color: #fff;
   border: none;
-  padding: 12px 20px;
-  border-radius: 30px;
+  padding: 12px 18px;
+  border-radius: 28px;
   font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: auto;
+  margin-top: auto;            /* pushes button to bottom when card grows */
+  transition: transform .12s ease, background-color .18s ease;
 }
 
-.add-to-cart:hover {
-  background-color: #444;
+.add-to-cart:hover,
+.add-to-cart:focus {
+  background-color: #222;
+  transform: translateY(-2px);
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .product-cards {
-    grid-template-columns: 1fr 1fr;
-    padding: 30px 15px;
-  }
-}
-
-@media (max-width: 400px) {
-  .product-cards {
-    grid-template-columns: 1fr;
-    padding: 20px 10px;
-  }
-}
-
-
-
-
-/* View All Button */
+/* VIEW ALL BUTTON (keeps your original look but fixed hover) */
 .view-all-container {
   text-align: center;
   margin-top: 25px;
@@ -530,12 +531,45 @@ a {
   border: none;
   font-size: 15px;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background-color 0.2s ease;
   font-weight: 500;
 }
 
 .view-all-btn:hover {
-  background-color: #fffafa;
+  background-color: #f5f5f5;
+}
+
+/* ========== RESPONSIVE TWEAKS ========== */
+
+/* MOBILE: two cards per row on narrow phones (<= 600px) */
+@media (max-width: 600px) {
+  .product-cards {
+    grid-template-columns: repeat(2, 1fr); /* exactly 2 columns */
+    gap: 14px;
+    padding: 20px;
+  }
+
+  .card {
+    min-height: 320px;
+    padding: 12px;
+  }
+
+  .card img {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* VERY SMALL SCREENS: single column (<= 380px) */
+@media (max-width: 380px) {
+  .product-cards {
+    grid-template-columns: 1fr; /* 1 column for very small devices */
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .card {
+    min-height: auto;
+  }
 }
 
 
@@ -1531,6 +1565,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
