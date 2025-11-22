@@ -53,8 +53,32 @@ searchForm.addEventListener("submit", function(e) {
 </script>
 
     <!-- SLIDE MENU -->
-    <nav class="side-menu" id="navMenu"> <div class="close-btn" onclick="toggleMenu()">← Close</div> <a href="tshirt.html"><b>T-Shirt</b></a> <a href="hoodies.html"><b>Hoodies</b></a> <a href="contact.html"><b>Contact Us</b></a> <a href="about.html"><b>About Us</b></a> </nav>
+    <nav class="side-menu" id="navMenu"> 
+  <div class="close-btn" onclick="toggleMenu()">← Close</div> 
 
+  <!-- LOGO AT THE TOP -->
+  <div class="menu-logo">
+    <img src="images/urban.png" alt="URBAN.IN Logo">
+  </div>
+
+  <!-- MENU LINKS -->
+  <a href="tshirt.html"><b>T-Shirt</b></a> 
+  <a href="hoodies.html"><b>Hoodies</b></a> 
+  <a href="contact.html"><b>Contact Us</b></a> 
+  <a href="about.html"><b>About Us</b></a>
+</nav>
+<style>
+  .side-menu .menu-logo {
+    text-align: center;  /* center the logo */
+    margin-bottom: 20px; /* space between logo and menu items */
+}
+
+.side-menu .menu-logo img {
+    max-width: 120px;    /* adjust size of the logo */
+    height: auto;        /* keep aspect ratio */
+}
+
+</style>
 </header>
 
 <script>
@@ -289,6 +313,7 @@ function toggleMenu() {
 
 </body>
 </html>
+
 
 
 
