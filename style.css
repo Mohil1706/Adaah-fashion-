@@ -752,6 +752,9 @@ a {
   text-transform: uppercase;
   letter-spacing: 1px;
   
+    border-top-width: 3px;
+    margin-top: 20px;
+
 }
 
 /* Responsive heading */
@@ -1599,6 +1602,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
