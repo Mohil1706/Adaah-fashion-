@@ -24,7 +24,6 @@
 .nav-top {
     width: 100%;
     display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -1601,6 +1600,7 @@ label:hover img {
     font-size: 14px;
     font-weight: 600;
 }
+
 
 
 
