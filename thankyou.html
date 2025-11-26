@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Thank You</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.thanks-wrap{ max-width:700px; margin:80px auto; text-align:center; padding:20px; }
+.order-card{ background:#fff; padding:18px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.06); text-align:left; display:inline-block; min-width:320px; }
+.order-card h2{ color:#28a745; }
+.order-row{ display:flex; gap:12px; align-items:center; margin-top:10px; }
+.order-row img{ width:100px; border-radius:8px; }
+.view-details-btn {
+  background-color: #9e9898;
+  color: #fff;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 28px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: auto;            /* pushes button to bottom when card grows */
+  transition: transform .12s ease, background-color .18s ease;
+  align-items: center;
+  text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+<div class="thanks-wrap">
+  <div class="brand-bar" style="margin-bottom:18px;"><span class="brand-text">Thank You!</span></div>
+
+  <div id="orderSummary" class="order-card">
+    <h2>Thank you for your order</h2>
+    <p>We're processing your order. A confirmation has been opened in WhatsApp.</p>
+    <div id="orderDetails"></div>
+    <p style="margin-top:12px;"><a href="index.html" class="view-details-btn" style="padding:8px 12px;border-radius:8px;">Back to Shop</a></p>
+  </div>
+</div>
+
+<script>
+(function(){
+  const raw = sessionStorage.getItem('lastOrder');
+  if(!raw){
+    document.getElementById('orderDetails').innerHTML = '<p>No recent order found.</p>';
+    return;
+  }
+  const order = JSON.parse(raw);
+  const p = order.product;
+  document.getElementById('orderDetails').innerHTML = `
+    <div class="order-row">
+      <img src="${p.img}" alt="${p.name}">
+      <div>
+        <strong>${p.name}</strong><br>
+        Price: ₹${p.price}<br>
+        Quantity: ${order.quantity}<br>
+        Customer: ${order.customer.name} (${order.customer.phone})<br>
+        Address: ${order.customer.address}
+      </div>
+    </div>
+  `;
+  // optionally clear lastOrder if you want one-time display:
+  // sessionStorage.removeItem('lastOrder');
+})();
+</script>
+</body>
+</html>
