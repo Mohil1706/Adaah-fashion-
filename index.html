@@ -12,7 +12,9 @@
 </head>
 <body>
   <style>
-    
+     body {
+    padding-top: 120px; /* adjust if navbar looks squished */
+}
   /* BASIC RESET */
 * {
     margin: 0;
@@ -27,6 +29,11 @@
     background: #e4d5d5;
     padding: 10px 15px;
     border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 2000;
 }
 
 /* TOP BAR LAYOUT */
@@ -1702,6 +1709,7 @@ function toggleMenu() {
 
 </body>
 </html>
+
 
 
 
