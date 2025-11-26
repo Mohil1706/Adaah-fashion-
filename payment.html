@@ -96,13 +96,20 @@ function renderCheckout(){
 
     if(!name || !phone || !address){ alert('Please fill all fields'); return; }
 
-    const order = {
-      product: p,
-      quantity: qty,
-      customer: { name, phone, address },
-      time: new Date().toISOString(),
-      productLink: window.location.origin + '/pages/product-detail.html?id=' + p.id
+    // Generate dynamic product link based on current folder
+const currentPath = window.location.pathname;
+const folderPath = currentPath.substring(0, currentPath.lastIndexOf('/') + 1);
+const productLink = window.location.origin + folderPath + 'product-detail.html?id=' + p.id;
+const productImageUrl = window.location.origin + '/' + p.img;
 
+const order = {
+  product: p,
+  quantity: qty,
+  customer: { name, phone, address },
+  time: new Date().toISOString(),
+  productLink,
+  productImageUrl
+};
     // Save to session so thankyou.html can show summary
     sessionStorage.setItem('lastOrder', JSON.stringify(order));
 
@@ -129,6 +136,7 @@ renderCheckout();
 </script>
 </body>
 </html>
+
 
 
 
