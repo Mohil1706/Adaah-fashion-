@@ -101,8 +101,7 @@ function renderCheckout(){
       quantity: qty,
       customer: { name, phone, address },
       time: new Date().toISOString(),
-      productLink: window.location.origin + '/product-detail.html?id=' + p.id
-    };
+      productLink: window.location.origin + '/pages/product-detail.html?id=' + p.id
 
     // Save to session so thankyou.html can show summary
     sessionStorage.setItem('lastOrder', JSON.stringify(order));
@@ -130,6 +129,7 @@ renderCheckout();
 </script>
 </body>
 </html>
+
 
 
 
