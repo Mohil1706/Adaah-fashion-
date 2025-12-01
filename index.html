@@ -1376,9 +1376,7 @@ document.getElementById('buyNowBtn').addEventListener('click', function() {
         <span class="new-price">₹599</span>
         <span class="discount">-15%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(1)">Add to Cart 🛒</button>
-      </div>
+     
     </div>
 </div>
 
@@ -1410,9 +1408,7 @@ document.getElementById('buyNowBtn').addEventListener('click', function() {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(3)">Add to Cart 🛒</button>
-      </div>
+    
     </div>
 </div>
 
@@ -1444,9 +1440,7 @@ document.getElementById('buyNowBtn').addEventListener('click', function() {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+      
     </div>
 </div>
 
@@ -1461,9 +1455,7 @@ document.getElementById('buyNowBtn').addEventListener('click', function() {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(3)">Add to Cart 🛒</button>
-      </div>
+     
     </div>
 </div>
 
@@ -1495,20 +1487,11 @@ document.getElementById('buyNowBtn').addEventListener('click', function() {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+      
     </div>
 </div>
 
-<script>
-function addToCart(productId) {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(productId);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
-}
-</script>
+
 
   <!-- Repeat for products 3–10 -->
 </div>
@@ -1567,9 +1550,7 @@ function addToCart(productId) {
         <span class="new-price">₹599</span>
         <span class="discount">-15%</span>
       </div>
-      <div class="card-buttons">
-         <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+      
     </div>
   </div>
 
@@ -1584,9 +1565,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+     
     </div>
   </div>
 <!-- PRODUCT 3 -->
@@ -1600,9 +1579,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-         <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+     
     </div>
   </div>
 <!-- PRODUCT 4 -->
@@ -1616,9 +1593,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-         <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+      
     </div>
   </div>
 <!-- PRODUCT 5 -->
@@ -1632,9 +1607,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-         <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+      
     </div>
   </div>
 
@@ -1649,9 +1622,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-         <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+     
     </div>
   </div>
 <!-- PRODUCT 7 -->
@@ -1665,9 +1636,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+      
     </div>
   </div>
   <!-- PRODUCT 8 -->
@@ -1681,9 +1650,7 @@ function addToCart(productId) {
         <span class="new-price">₹499</span>
         <span class="discount">-17%</span>
       </div>
-      <div class="card-buttons">
-        <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(2)">Add to Cart 🛒</button>
-      </div>
+     
     </div>
   </div>
   <!-- Repeat for products 3–10 -->
@@ -1795,3 +1762,4 @@ function addToCart(productId) {
 
 </body>
 </html>
+
