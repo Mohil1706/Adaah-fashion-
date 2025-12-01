@@ -7,7 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-   
+    .customer-reviews {
+    margin-top: 25px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+    }
     .view-details-btn {
   background-color: #9e9898;
   color: #fff;
@@ -61,7 +68,7 @@ body {
 }
 
 .slides img {
-    width: 100%;
+    width: 25%;
     border-radius: 10px;
 }
 
@@ -331,7 +338,10 @@ h2 {
     </div>
 
     <!-- Buy Button -->
-    <button class="buy-btn" onclick="buyNow()">Buy Now</button>
+    <button class="buy-btn" id="buyNowBtn">Buy Now</button>
+<script>
+    
+</script>
     <button class="buy-btn" style="background:#999f9b; margin-top:10px;" onclick="addToCart()">Add To Cart  </button>
     
 
@@ -430,10 +440,10 @@ function shareProduct() {
 // Related products
 const related = [
     { id:2, name:'Casual Shirt', price:399, img:'images/o2.jpg' },
-    { id:3, name:'Summer Dress', price:499, img:'images/o3.jpg' },
+    { id:3, name:'Summer Dress', price:499, img:'images/o2.jpg' },
     { id:4, name:'Denim Jeans', price:399, img:'images/o4.jpg' },
-    { id:5, name:'Hoodie 1', price:999, img:'images/o5.jpg' },
-    { id:6, name:'Hoodie 2', price:899, img:'images/o6.jpg' }
+    { id:5, name:'Hoodie 1', price:999, img:'images/o1.jpg' },
+    { id:6, name:'Hoodie 2', price:899, img:'images/o2.jpg' }
 ];
 
 const relatedContainer = document.getElementById('relatedItems');
@@ -474,7 +484,7 @@ related.forEach(p => {
             </div>
         </div>
         <div class="review">
-            <img src="images/user2.jpg" alt="Bob" class="user-img">
+            <img src="images/user1.jpg" alt="Bob" class="user-img">
             <div class="review-content">
                 <strong>Bob</strong>
                 <div class="review-stars">★★★★☆</div>
@@ -482,7 +492,7 @@ related.forEach(p => {
             </div>
         </div>
         <div class="review">
-            <img src="images/user2.jpg" alt="Charlie" class="user-img">
+            <img src="images/user1.jpg" alt="Charlie" class="user-img">
             <div class="review-content">
                 <strong>Charlie</strong>
                 <div class="review-stars">★★★★☆</div>
@@ -490,7 +500,7 @@ related.forEach(p => {
             </div>
         </div>
         <div class="review">
-            <img src="images/user1.jpg" alt="Diana" class="user-img">
+            <img src="images/user2.jpg" alt="Diana" class="user-img">
             <div class="review-content">
                 <strong>Diana</strong>
                 <div class="review-stars">★★★★☆</div>
@@ -614,13 +624,43 @@ function submitReview() {
     userRating = 0;
     highlightStars(0);
 }
+// Get product ID from URL
+const params = new URLSearchParams(window.location.search);
+const productId = params.get('id');
+
+// Example product database
+const products = [
+    { id: "1", name: "T-Shirt 1", price: 599, oldPrice: 699, discount: "15%", images: ["images/o1.jpg","images/o2.jpg"] },
+    { id: "2", name: "T-Shirt 2", price: 499, oldPrice: 599, discount: "17%", images: ["images/o2.jpg","images/o3.jpg"] },
+    { id: "3", name: "T-Shirt 3", price: 699, oldPrice: 799, discount: "13%", images: ["images/o3.jpg","images/o4.jpg"] },
+    // add all products here...
+];
+
+// Find product by ID
+const product = products.find(p => p.id === productId);
+
+// Populate page dynamically
+if(product){
+    document.getElementById('pname').textContent = product.name;
+    
+    // Price section
+    document.querySelector('.offer-price').textContent = "₹" + product.price;
+    document.querySelector('.mrp').textContent = "₹" + product.oldPrice;
+    document.querySelector('.off').textContent = product.discount;
+
+    // Slider images
+    const slideBox = document.getElementById("slideBox");
+    slideBox.innerHTML = ""; // clear existing images
+    product.images.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        slideBox.appendChild(img);
+    });
+} else {
+    alert("Product not found!");
+}
+
 </script>
 
 </body>
 </html>
-
-
-
-
-
-
