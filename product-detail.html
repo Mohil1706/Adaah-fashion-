@@ -338,7 +338,8 @@ h2 {
     </div>
 
     <!-- Buy Button -->
-    <button class="buy-btn" id="buyNowBtn">Buy Now</button>
+    <button class="buy-btn" id="buyNowBtn" onclick="buyNow()">Buy Now</button>
+
 <script>
     
 </script>
@@ -371,13 +372,36 @@ h2 {
 
 <script>
 
-    function addToCart() {
+   function addToCart() {
     const sizeEl = document.querySelector('.size-box span.active');
     const size = sizeEl ? sizeEl.textContent : 'M';
     const qty = parseInt(document.getElementById('qty').value || '1');
-    const url = `cart.html?id=1&size=${encodeURIComponent(size)}&qty=${qty}`;
-    window.location.href = url;
+
+    const cartItem = {
+        id: productId,
+        name: product.name,
+        price: product.price,
+        img: product.images[0],
+        size: size,
+        qty: qty
+    };
+
+    // Get existing cart
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // If same product + size exists, increase quantity
+    const existing = cart.find(item => item.id === product.id && item.size === size);
+    if (existing) {
+        existing.qty += qty;
+    } else {
+        cart.push(cartItem);
+    }
+
+    localStorage.setItem("cart", JSON.stringify(cart));
+
+    window.location.href = "cart.html";
 }
+
 
 // Slider
 function moveSlide(n) {
@@ -417,9 +441,10 @@ function buyNow() {
     const sizeEl = document.querySelector('.size-box span.active');
     const size = sizeEl ? sizeEl.textContent : 'M';
     const qty = parseInt(document.getElementById('qty').value || '1');
-    const url = `payment.html?id=1&size=${encodeURIComponent(size)}&qty=${qty}`;
+    const url = `payment.html?id=${productId}&size=${encodeURIComponent(size)}&qty=${qty}`;
     window.location.href = url;
 }
+
 
 // SHARE PRODUCT
 function shareProduct() {
@@ -660,6 +685,69 @@ if(product){
     alert("Product not found!");
 }
 
+
+
+
+document.getElementById('buyNowBtn').addEventListener('click', buyNow);
+
+// Improved addToCart that uses product data and localStorage
+function addToCart() {
+    if (!product) {
+        alert('Product not loaded.');
+        return;
+    }
+
+    const sizeEl = document.querySelector('.size-box span.active');
+    const size = sizeEl ? sizeEl.textContent : 'M';
+    const qty = Math.max(1, parseInt(document.getElementById('qty').value || '1', 10));
+
+    // Read cart, update or push
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+    // Find existing item with same product id and size
+    const existing = cart.find(item => item.id === product.id && item.size === size);
+    if (existing) {
+        existing.qty = existing.qty + qty;
+    } else {
+        cart.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.images && product.images[0] ? product.images[0] : 'images/o1.jpg',
+            size: size,
+            qty: qty
+        });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // Redirect to cart page
+    window.location.href = 'cart.html';
+}
+
+// Buy Now: save a checkout item and redirect to payment.html
+function buyNow() {
+    if (!product) {
+        alert('Product not loaded.');
+        return;
+    }
+    const sizeEl = document.querySelector('.size-box span.active');
+    const size = sizeEl ? sizeEl.textContent : 'M';
+    const qty = Math.max(1, parseInt(document.getElementById('qty').value || '1', 10));
+
+    const checkoutItem = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        img: product.images && product.images[0] ? product.images[0] : 'images/o1.jpg',
+        size: size,
+        qty: qty
+    };
+
+    // Save single item for checkout (payment.html will read it)
+    localStorage.setItem('checkout', JSON.stringify(checkoutItem));
+    window.location.href = 'payment.html';
+}
 </script>
 
 </body>
