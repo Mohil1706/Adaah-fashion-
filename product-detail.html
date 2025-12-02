@@ -45,7 +45,7 @@
     .card-info h3 { margin: 4px 0; font-size: 16px; font-weight: 600; }
     .card-info .rating { font-size: 14px; }
     .card-info .price-box { display: flex; gap: 6px; align-items: baseline; }
-    .old-price { text-decoration: line-through; color: #9a9a9a; font-size: 14px; }
+    .old-price { color: red; font-weight: bold; font-size: 14px; }
     .new-price { font-weight: bold; color: #111; font-size: 14px; }
     .discount { color: #16a34a; font-weight: 600; font-size: 12px; }
     @media (max-width: 720px) { .service-box { width: 100%; } .price-box { gap: 8px; } .related-items { gap: 10px; } }
@@ -210,7 +210,15 @@ const products = [
     { id: "3", name: "T-Shirt 3", price: 699, oldPrice: 799, discount: "13%", images: ["images/o3.jpg","images/o4.jpg"], rating: "⭐⭐⭐⭐⭐" }
 ];
 const product = products.find(p=>p.id===productId);
-if(product){ document.getElementById('pname').textContent = product.name; document.querySelector('.offer-price').textContent = "₹"+product.price; document.querySelector('.mrp').textContent = "₹"+product.oldPrice; document.querySelector('.off').textContent = product.discount; const slideBox = document.getElementById("slideBox"); slideBox.innerHTML=""; product.images.forEach(src=>{ const img=document.createElement("img"); img.src=src; slideBox.appendChild(img); }); }else{ alert("Product not found!"); }
+if(product){ 
+    document.getElementById('pname').textContent = product.name; 
+    document.querySelector('.offer-price').textContent = "₹"+product.price; 
+    document.querySelector('.mrp').textContent = "₹"+product.oldPrice; 
+    document.querySelector('.off').textContent = product.discount; 
+    const slideBox = document.getElementById("slideBox"); 
+    slideBox.innerHTML=""; 
+    product.images.forEach(src=>{ const img=document.createElement("img"); img.src=src; slideBox.appendChild(img); }); 
+}else{ alert("Product not found!"); }
 
 // Add to Cart
 function addToCart(){ if(!product){alert('Product not loaded.');return;} const sizeEl = document.querySelector('.size-box span.active'); const size = sizeEl?sizeEl.textContent:'M'; const qty = Math.max(1,parseInt(document.getElementById('qty').value||'1',10)); const cart = JSON.parse(localStorage.getItem('cart')||'[]'); const existing = cart.find(item=>item.id===product.id && item.size===size); if(existing){existing.qty+=qty;}else{ cart.push({id:product.id,name:product.name,price:product.price,img:product.images[0],size:size,qty:qty}); } localStorage.setItem('cart',JSON.stringify(cart)); window.location.href='cart.html'; }
@@ -222,27 +230,60 @@ document.getElementById("buyNowBtn").addEventListener("click",buyNow);
 // Share
 function shareProduct(){ const shareData={title:document.getElementById("pname").textContent,text:"Check out this product!",url:window.location.href}; if(navigator.share){navigator.share(shareData);} else{navigator.clipboard.writeText(window.location.href);alert("Link copied to clipboard!");} }
 
-// Related Products
-const related=[ { id:2, name:'T-shirt 2', oldPrice:499,price:399, discount:'-20%', rating:'⭐⭐⭐⭐', img:'images/o2.jpg' }, 
-{ id:3, name:'T-shirt 3', price:499, oldPrice:599, discount:'-16%', rating:'⭐⭐⭐⭐', img:'images/o3.jpg' },
- { id:4, name:'Denim Jeans', price:399, oldPrice:499, discount:'-20%', rating:'⭐⭐⭐⭐⭐', img:'images/o4.jpg' }, 
- { id:5, name:'Hoodie 1', price:999, oldPrice:1299, discount:'-23%', rating:'⭐⭐⭐⭐⭐', img:'images/o1.jpg' }, 
- { id:6, name:'Hoodie 2', price:899, oldPrice:1099, discount:'-18%', rating:'⭐⭐⭐⭐', img:'images/o2.jpg' } ];
+// Related Products with SALE text
+const related=[
+    { id:2, name:'T-shirt 2', price:399, oldPrice:499, discount:'-20%', rating:'⭐⭐⭐⭐', img:'images/o2.jpg' }, 
+    { id:3, name:'T-shirt 3', price:499, oldPrice:599, discount:'-16%', rating:'⭐⭐⭐⭐', img:'images/o3.jpg' },
+    { id:4, name:'Denim Jeans', price:399, oldPrice:499, discount:'-20%', rating:'⭐⭐⭐⭐⭐', img:'images/o4.jpg' }, 
+    { id:5, name:'Hoodie 1', price:999, oldPrice:1299, discount:'-23%', rating:'⭐⭐⭐⭐⭐', img:'images/o1.jpg' }, 
+    { id:6, name:'Hoodie 2', price:899, oldPrice:1099, discount:'-18%', rating:'⭐⭐⭐⭐', img:'images/o2.jpg' } 
+];
 const relatedContainer=document.getElementById('relatedItems');
 related.forEach(p=>{ 
     const card=document.createElement('div'); 
     card.className='card'; 
     card.setAttribute('onclick',`window.location.href='product-detail.html?id=${p.id}'`); 
-    card.innerHTML=`<img src="${p.img}" alt="${p.name}"><div class="card-info"><h3>${p.name}</h3><div class="rating">${p.rating}</div><div class="price-box"><span class="old-price">₹${p.oldPrice}</span><span class="new-price">₹${p.price}</span><span class="discount">${p.discount}</span></div></div>`; 
+    card.innerHTML=`
+        <img src="${p.img}" alt="${p.name}">
+        <div class="card-info">
+            <h3>${p.name}</h3>
+            <div class="rating">${p.rating}</div>
+            <div class="price-box">
+                <span class="old-price">SALE</span>
+                <span class="new-price">₹${p.price}</span>
+                <span class="discount">${p.discount}</span>
+            </div>
+        </div>`; 
     relatedContainer.appendChild(card); 
 });
 
 // Customer Reviews
 let userRating=0;
 const starElements=document.querySelectorAll("#userStars span");
-starElements.forEach(star=>{ star.addEventListener('mouseover',()=>{highlightStars(parseInt(star.dataset.value));}); star.addEventListener('mouseout',()=>{highlightStars(userRating);}); star.addEventListener('click',()=>{userRating=parseInt(star.dataset.value);highlightStars(userRating);}); });
-function highlightStars(rating){ starElements.forEach(star=>{ if(parseInt(star.dataset.value)<=rating){star.textContent='★';star.classList.add('selected');}else{star.textContent='☆';star.classList.remove('selected');} }); }
-function submitReview(){ const name=document.getElementById('userName').value.trim(); const feedback=document.getElementById('userFeedback').value.trim(); if(name===''||feedback===''||userRating===0){alert("Please enter your name, feedback, and select a star rating!");return;} const newReview=document.createElement('div'); newReview.className='review'; newReview.innerHTML=`<img src="images/user-placeholder.png" alt="${name}" class="user-img"><div class="review-content"><strong>${name}</strong><div class="review-stars">${'★'.repeat(userRating)}${'☆'.repeat(5-userRating)}</div><p>${feedback}</p></div>`; document.getElementById('reviewsList').appendChild(newReview); document.getElementById('userName').value=''; document.getElementById('userFeedback').value=''; userRating=0; highlightStars(0); }
+starElements.forEach(star=>{ 
+    star.addEventListener('mouseover',()=>{highlightStars(parseInt(star.dataset.value));}); 
+    star.addEventListener('mouseout',()=>{highlightStars(userRating);}); 
+    star.addEventListener('click',()=>{userRating=parseInt(star.dataset.value);highlightStars(userRating);}); 
+});
+function highlightStars(rating){ 
+    starElements.forEach(star=>{ 
+        if(parseInt(star.dataset.value)<=rating){star.textContent='★';star.classList.add('selected');}
+        else{star.textContent='☆';star.classList.remove('selected');} 
+    }); 
+}
+function submitReview(){ 
+    const name=document.getElementById('userName').value.trim(); 
+    const feedback=document.getElementById('userFeedback').value.trim(); 
+    if(name===''||feedback===''||userRating===0){alert("Please enter your name, feedback, and select a star rating!");return;} 
+    const newReview=document.createElement('div'); 
+    newReview.className='review'; 
+    newReview.innerHTML=`<img src="images/user-placeholder.png" alt="${name}" class="user-img"><div class="review-content"><strong>${name}</strong><div class="review-stars">${'★'.repeat(userRating)}${'☆'.repeat(5-userRating)}</div><p>${feedback}</p></div>`; 
+    document.getElementById('reviewsList').appendChild(newReview); 
+    document.getElementById('userName').value=''; 
+    document.getElementById('userFeedback').value=''; 
+    userRating=0; 
+    highlightStars(0); 
+}
 </script>
 
 </body>
