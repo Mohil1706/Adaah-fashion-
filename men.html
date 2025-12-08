@@ -652,5 +652,75 @@ function goDetail(id){
   }
 
   // basic XSS-safe escape
-  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function
-    </script>
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  // star rating UI
+  const starsNode = document.getElementById('ratingStars');
+  let selectedStars = 5;
+  starsNode.addEventListener('click', (e)=>{
+    const span = e.target.closest('span[data-value]');
+    if(!span) return;
+    selectedStars = Number(span.dataset.value)||5;
+    updateStarsUI();
+  });
+  function updateStarsUI(){
+    Array.from(starsNode.children).forEach(ch=>{
+      const v = Number(ch.dataset.value);
+      ch.textContent = (v <= selectedStars) ? '★' : '☆';
+      ch.style.color = (v <= selectedStars) ? '#f59e0b' : '#bbb';
+    });
+  }
+  updateStarsUI();
+
+  // handle form submit
+  const form = document.getElementById('rateForm');
+  const success = document.getElementById('rateSuccess');
+  form.addEventListener('submit', (ev)=>{
+    ev.preventDefault();
+    const pid = form.querySelector('#productSelect').value;
+    const name = form.querySelector('#rname').value.trim() || 'Anonymous';
+    const comment = form.querySelector('#rcomment').value.trim() || '';
+    const avatar = 'https://i.pravatar.cc/60?u=' + encodeURIComponent(name + Date.now());
+    const revs = loadReviews();
+    revs.unshift({id:pid, name:name, stars:selectedStars, text:comment, avatar:avatar});
+    saveReviews(revs);
+    renderReviews();
+    success.style.display = 'inline-block';
+    setTimeout(()=> success.style.display = 'none', 3000);
+    form.reset();
+    selectedStars = 5; updateStarsUI();
+  });
+
+  // initial render
+  renderReviews();
+})();
+
+/* ---------------- Accessibility: keyboard support for featured carousel (left/right) ------------- */
+(function(){
+  const fc = document.getElementById('featuredCarousel');
+  fc.addEventListener('keydown', (e)=>{
+    if(e.key === 'ArrowRight') fc.scrollBy({left:240,behavior:'smooth'});
+    if(e.key === 'ArrowLeft') fc.scrollBy({left:-240,behavior:'smooth'});
+  });
+})();
+
+
+
+
+function goto(i){
+  idx = i;
+  const x = -(100 * idx);
+  slidesWrap.style.transform = 'translateX(' + x + '%)';
+  dots.forEach(d=>d.classList.remove('active'));
+  dots[idx].classList.add('active');
+
+  // Update Buy Now button link
+  const btn = document.getElementById('heroBuyBtn');
+  const slideId = slides[idx].dataset.id;
+  btn.href = 'payment.html?banner=' + slideId.replace('b','');
+}
+
+</script>
+</body>
+</html>
+
