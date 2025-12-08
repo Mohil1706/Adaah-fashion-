@@ -1,73 +1,656 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Men's Collection | ADAAH.CO</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Men's Collection | अRBUN.IN</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <style>
-        body { font-family: 'Inter', sans-serif; margin: 0; padding: 0; background: #f8f8f8; }
-        header { background: #000; color: #fff; padding: 20px 40px; font-size: 24px; font-weight: 700; }
-        .section-title { font-size: 40px; text-align: center; margin: 40px 0; }
-        .products-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; padding: 0 8% 50px; }
-        .card { background: #fff; padding: 15px; border-radius: 12px; border: 1px solid #ddd; transition: 0.3s; text-align: center; }
-        .card:hover { transform: scale(1.03); border-color: #000; }
-        .card img { width: 100%; height: 320px; object-fit: cover; border-radius: 10px; }
-        .card h3 a { text-decoration: none; color: inherit; }
-        .rating { margin: 5px 0; color: #f7b500; }
-        .price { font-size: 18px; margin: 5px 0 10px; }
-        .button-group { display: flex; justify-content: space-between; gap: 10px; }
-        .btn { flex: 1; padding: 10px; border: none; border-radius: 8px; cursor: pointer; font-size: 15px; transition: 0.3s; }
-        .details-btn { background: #ddd; } .details-btn:hover { background: #ccc; }
-        .buy-btn { background: #000; color: #fff; } .buy-btn:hover { background: #444; }
-        footer { background: #111; color: #fff; text-align: center; padding: 15px; margin-top: 60px; }
-    </style>
+<style>
+  :root{
+    --bg:#f5f5f5;
+    --card:#ffffff;
+    --accent:#000;
+    --muted:#777;
+    --success:#16a34a;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,"Helvetica Neue",Arial;
+    background:var(--bg);
+    color:#111;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+  }
+
+  /* HEADER - center aligned text */
+  header{
+    background:#b1cbbb;
+    color:#000000;
+    padding:18px 20px;
+    text-align:center; /* center aligned text (as requested) */
+    font-weight:700;
+    font-size:20px;
+    position:sticky;
+    top:0;
+    z-index:30;
+  }
+
+  /* CONTAINER LAYOUT */
+  .container{max-width:1180px;margin:28px auto;padding:0 16px;}
+
+  /* BANNER SLIDER (Option B style: height ~300px) */
+  .hero-slider{
+    position:relative;
+    width:100%;
+    height:320px;
+    border-radius:12px;
+    overflow:hidden;
+    background:#000;
+  }
+  .slides{
+    display:flex;
+    width:300%;
+    height:100%;
+    transition:transform .7s cubic-bezier(.22,.9,.3,1);
+    
+  }
+  .slide{
+    width:100%;
+    flex-shrink:0;
+    height:100%;
+    position:relative;
+  }
+  .slide img{
+   
+    object-fit:cover;
+    display:block;
+  }
+  /* Buy Now button bottom-right inside each slide */
+ /* Buy Now button bottom-right inside each slide */
+/* Buy Now button bottom-right inside each slide */
+/* Ensure Buy Now button is always visible on top of slider */
+.hero-slider .buy-banner {
+  position: absolute;
+  right: 18px;
+  bottom: 8px;
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  z-index: 25; /* above slides and dots */
+  text-decoration: none;
+  pointer-events: auto;
+  transition: transform 0.15s, background 0.15s;
+}
+.hero-slider .buy-banner:hover {
+  background: rgba(0,0,0,0.85);
+  transform: translateY(-2px);
+}
+
+
+
+
+  /* slider dots */
+  .slider-dots{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    bottom:10px;
+    display:flex;
+    gap:8px;
+    z-index:10;
+  }
+  .slider-dots button{
+    width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,.45);cursor:pointer;
+  }
+  .slider-dots button.active{background:#fff}
+
+  /* FEATURED carousel (horizontal scroll) */
+  h2.section-title{
+    margin:26px 0 12px;
+    font-size:22px;
+    text-align:left;
+  }
+
+  .featured-carousel{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    padding-bottom:8px;
+    scroll-snap-type:x mandatory;
+  }
+  .featured-carousel::-webkit-scrollbar{display:none}
+  .feat-card{
+    min-width:230px;
+    width:230px;
+    background:var(--card);
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+    cursor:pointer;
+    transition:transform .15s;
+    scroll-snap-align:center;
+    border:1px solid #eee;
+
+
+  }
+  .feat-card:hover{transform:translateY(-6px)}
+  .feat-card img{width:100%;height:160px;object-fit:cover;display:block}
+  .feat-body{padding:12px}
+  .rating{color:#f59e0b;margin:8px 0}
+  .price-row{display:flex;align-items:center;gap:8px;justify-content:space-between}
+  .price-row .new{font-weight:700}
+  .feat-actions{display:flex;gap:8px;margin-top:10px}
+  .btn{display:inline-block;padding:8px 10px;border-radius:8px;border:none;cursor:pointer;font-weight:600;text-decoration:none}
+  .btn-buy{background:var(--accent);color:#fff}
+  .btn-detail{background:#efefef;color:#111}
+
+  /* RATINGS SECTION */
+  .ratings{
+    margin:28px 0;
+    display:grid;
+    gap:16px;
+  }
+  .review-list{display:grid;gap:12px}
+  .review{
+    display:flex;gap:12px;background:var(--card);padding:12px;border-radius:10px;align-items:flex-start;border:1px solid #eee;
+  }
+  .review img{width:54px;height:54px;border-radius:50%;object-fit:cover}
+  .review h4{margin:0;font-size:15px}
+  .review .meta{font-size:13px;color:var(--muted);margin-top:4px}
+  .star-row{color:#f59e0b}
+
+  .rate-form{
+    background:var(--card);
+    padding:12px;border-radius:10px;border:1px solid #eee;
+    display:flex;flex-direction:column;gap:8px;
+  }
+  .rate-form label{font-size:13px;color:var(--muted)}
+  .rate-form input[type="text"], .rate-form textarea, .rate-form select{
+    padding:8px;border-radius:8px;border:1px solid #ddd;width:100%;font-size:14px;
+  }
+  .stars {display:flex;gap:6px;font-size:20px;cursor:pointer}
+  .small{font-size:13px;color:var(--muted)}
+  .success-msg{color:var(--success);font-weight:600;font-size:13px}
+
+  /* PRODUCTS GRID */
+  .products-grid{
+    display:grid;
+    gap:18px;
+    grid-template-columns:repeat(4,1fr);
+    margin:20px 0 60px;
+  }
+  .prod{
+    background:var(--card);
+    border-radius:10px;
+    overflow:hidden;
+    border:1px solid #eee;
+    display:flex;flex-direction:column;
+  }
+  .prod img{width:100%;height:180px;object-fit:cover}
+  .prod .p-body{padding:10px;flex:1;display:flex;flex-direction:column;gap:8px}
+  .p-row{display:flex;justify-content:space-between;align-items:center}
+  .p-row .old{color:var(--muted);text-decoration:line-through;font-size:13px}
+  .p-row .new{font-weight:700}
+  .p-actions{display:flex;gap:8px}
+
+  /* Responsive */
+  @media (max-width:980px){
+    .container{max-width:940px}
+    .products-grid{grid-template-columns:repeat(3,1fr)}
+  }
+  @media (max-width:720px){
+    .hero-slider{height:220px}
+    .featured-carousel{gap:12px}
+    .feat-card{min-width:200px;width:200px}
+    .products-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media (max-width:420px){
+    header{font-size:18px;padding:14px 12px}
+    .hero-slider{height:180px}
+    .products-grid{grid-template-columns:repeat(1,1fr)}
+    
+  }
+  /* Ensure Buy Now button is always visible on top of slider */
+
+.btn-buy1 {
+    display: block;       /* Forces button to move below price */
+    margin-top: 10px;     /* Space between price and button */
+    padding: 12px 24px;
+    background-color: #1e1d1c;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.25s ease;
+    align-self: flex-start;
+}
+
+
+.btn-buy1:hover {
+    background-color: #63605e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.btn-buy1:active {
+    transform: scale(0.97);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+
+</style>
 </head>
 <body>
 
-<header>
-    ADAAH.CO – Men's Collection
-</header>
+<header>अRBUN.IN</header>
 
-<h1 class="section-title">Men's Premium Clothing</h1>
+<main class="container">
+<!-- HERO SLIDER (AUTO-MOVE) -->
+<section aria-label="Promotional banners" class="hero-slider" id="heroSlider">
+  <div class="slides" id="slides">
+    <div class="slide" data-id="b1">
+      <img src="images/ban2.png" alt="Banner — New Arrivals">
+    </div>
+    <div class="slide" data-id="b2">
+      <img src="images/ban2.png" alt="Banner — Limited Offer">
+    </div>
+    <div class="slide" data-id="b3">
+      <img src="images/ban2.png " alt="Banner — Best Seller">
+    </div>
+  </div>
 
-<div class="products-container">
+  <!-- Buy Now button always visible -->
+  <a class="buy-banner" id="heroBuyBtn" href="payment.html?banner=1">Buy Now</a>
 
-    <!-- Repeat 12 items like this -->
-    <div class="card">
-        <img src="images/m1.jpg" alt="Men Product">
-        <h3><a href="detail.html">Men’s Stylish Shirt</a></h3>
+  <div class="slider-dots" id="sliderDots" aria-hidden="false"></div>
+</section>
+
+
+  <!-- FEATURED -->
+  <h2 class="section-title">Featured Men's Wear</h2>
+  <div class="featured-carousel" id="featuredCarousel" aria-label="Featured products">
+    <!-- Featured cards (6) -->
+    <div class="feat-card" data-id="101" onclick="goDetail(101)">
+      <img src="images/o1.jpg" alt="Premium Shirt">
+      <div class="feat-body">
+        <div><strong>Premium Shirt</strong></div>
         <div class="rating">⭐⭐⭐⭐⭐</div>
-        <p class="price">₹599</p>
-        <div class="button-group">
-            <button class="btn details-btn" onclick="location.href='detail.html'">Details</button>
-            <button class="btn buy-btn" onclick="location.href='payment.html'">Buy Now</button>
+        <div class="price-row">
+          <div class="new">₹599</div> <br>
+          <div class="feat-actions">
+  
+            <diiv class="btn btn-buy1" href="payment.html?id=101" onclick="event.stopPropagation()">Buy Now</diiv>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Product 2 -->
-    <div class="card">
-        <img src="images/m2.jpg" alt="Men Product">
-        <h3><a href="detail.html">Casual Cotton Shirt</a></h3>
+    <div class="feat-card" data-id="102" onclick="goDetail(102)">
+      <img src="images/o2.jpg" alt="Casual Cotton Shirt">
+      <div class="feat-body">
+        <div><strong>Casual Cotton Shirt</strong></div>
         <div class="rating">⭐⭐⭐⭐</div>
-        <p class="price">₹499</p>
-        <div class="button-group">
-            <button class="btn details-btn" onclick="location.href='detail.html'">Details</button>
-            <button class="btn buy-btn" onclick="location.href='payment.html'">Buy Now</button>
+        <div class="price-row">
+          <div class="new">₹499</div>
+          <div class="feat-actions">
+          
+            <a class="btn btn-buy1" href="payment.html?id=102" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- Continue until m12.jpg -->
-    <!-- You can copy/paste and just update image file and names -->
+    <div class="feat-card" data-id="103" onclick="goDetail(103)">
+      <img src="images/o3.jpg" alt="Round Neck Tee">
+      <div class="feat-body">
+        <div><strong>Round Neck Tee</strong></div>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price-row">
+          <div class="new">₹349</div>
+          <div class="feat-actions">
+         
+            <a class="btn btn-buy1" href="payment.html?id=103" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div class="feat-card" data-id="104" onclick="goDetail(104)">
+      <img src="images/o4.jpg" alt="Classic Hoodie">
+      <div class="feat-body">
+        <div><strong>Classic Hoodie</strong></div>
+        <div class="rating">⭐⭐⭐⭐</div>
+        <div class="price-row">
+          <div class="new">₹999</div>
+          <div class="feat-actions">
+          
+            <a class="btn btn-buy1" href="payment.html?id=104" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<footer>
-    © 2025 ADAAH.CO — All Rights Reserved
-</footer>
+    <div class="feat-card" data-id="105" onclick="goDetail(105)">
+      <img src="images/o5.jpg" alt="Slim Fit Shirt">
+      <div class="feat-body">
+        <div><strong>Slim Fit Shirt</strong></div>
+        <div class="rating">⭐⭐⭐⭐</div>
+        <div class="price-row">
+          <div class="new">₹699</div>
+          <div class="feat-actions">
+           
+            <a class="btn btn-buy1" href="payment.html?id=105" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</body>
-</html>
+    <div class="feat-card" data-id="106" onclick="goDetail(106)">
+      <img src="images/o6.jpg" alt="Denim Jacket">
+      <div class="feat-body">
+        <div><strong>Denim Jacket</strong></div>
+        <div class="rating">⭐⭐⭐⭐⭐</div>
+        <div class="price-row">
+          <div class="new">₹1,299</div>
+          <div class="feat-actions">
+            
+            <a class="btn btn-buy1" href="payment.html?id=106" onclick="event.stopPropagation()">Buy Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
 
+  </div>
+
+  <!-- SMALL BANNER -->
+  <div style="margin:18px 0;">
+    <img src="images/ban1.png" alt="Promo" style="height:160px;object-fit:cover;border-radius:10px">
+  </div>
+
+
+
+ 
+  <!-- RATINGS -->
+  <h2 class="section-title">Customer Ratings</h2>
+
+  <div class="ratings">
+    <div class="review-list" id="reviewsList">
+      <!-- Reviews will populate here from JS/localStorage -->
+    </div>
+
+    <!-- Rate form -->
+    <form id="rateForm" class="rate-form" aria-label="Rate a product">
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <label for="productSelect" class="small">Product</label>
+        <select id="productSelect" required>
+          <option value="101">101 — Premium Shirt</option>
+          <option value="102">102 — Casual Cotton Shirt</option>
+          <option value="103">103 — Round Neck Tee</option>
+          <option value="104">104 — Classic Hoodie</option>
+          <option value="105">105 — Slim Fit Shirt</option>
+          <option value="106">106 — Denim Jacket</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="small">Your name</label>
+        <input id="rname" type="text" placeholder="Jane Doe" required />
+      </div>
+
+      <div>
+        <label class="small">Rating</label>
+        <div class="stars" id="ratingStars" role="radiogroup" aria-label="Star rating">
+          <span data-value="1">☆</span>
+          <span data-value="2">☆</span>
+          <span data-value="3">☆</span>
+          <span data-value="4">☆</span>
+          <span data-value="5">☆</span>
+        </div>
+      </div>
+
+      <div>
+        <label class="small">Comment (optional)</label>
+        <textarea id="rcomment" rows="2" placeholder="Loved the fabric..."></textarea>
+      </div>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <button type="submit" class="btn btn-buy">Submit Rating</button>
+        <div id="rateSuccess" class="success-msg" style="display:none">Thanks — rating added!</div>
+      </div>
+    </form>
+  </div>
+
+  <!-- PRODUCT GRID (normal style, 8 items) -->
+  <h2 class="section-title">More Products</h2>
+  <div class="products-grid" id="productsGrid" aria-label="Product list">
+    <!-- Example product cards -->
+    <div class="prod">
+      <img src="images/o1.jpg" alt="T-Shirt 1">
+      <div class="p-body">
+        <div style="font-weight:600">T-Shirt 1</div>
+        <div class="p-row">
+          <div class="old">₹699</div>
+          <div class="new">₹599</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+       
+          <a class="btn btn-buy" href="payment.html?id=201">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p2.jpg" alt="Premium Tee">
+      <div class="p-body">
+        <div style="font-weight:600">Premium Tee</div>
+        <div class="p-row">
+          <div class="old">₹799</div>
+          <div class="new">₹659</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+      
+          <a class="btn btn-buy" href="payment.html?id=202">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p3.jpg" alt="Casual Shirt">
+      <div class="p-body">
+        <div style="font-weight:600">Casual Shirt</div>
+        <div class="p-row">
+          <div class="old">₹899</div>
+          <div class="new">₹739</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+
+          <a class="btn btn-buy" href="payment.html?id=203">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p4.jpg" alt="Sports Tee">
+      <div class="p-body">
+        <div style="font-weight:600">Sports Tee</div>
+        <div class="p-row">
+          <div class="old">₹499</div>
+          <div class="new">₹399</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+        
+          <a class="btn btn-buy" href="payment.html?id=204">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p5.jpg" alt="Hoodie">
+      <div class="p-body">
+        <div style="font-weight:600">Hoodie</div>
+        <div class="p-row">
+          <div class="old">₹1299</div>
+          <div class="new">₹999</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+          
+          <a class="btn btn-buy" href="payment.html?id=205">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p6.jpg" alt="Check Shirt">
+      <div class="p-body">
+        <div style="font-weight:600">Check Shirt</div>
+        <div class="p-row">
+          <div class="old">₹899</div>
+          <div class="new">₹699</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+          
+          <a class="btn btn-buy" href="payment.html?id=206">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p7.jpg" alt="Formal Shirt">
+      <div class="p-body">
+        <div style="font-weight:600">Formal Shirt</div>
+        <div class="p-row">
+          <div class="old">₹1199</div>
+          <div class="new">₹899</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+          
+          <a class="btn btn-buy" href="payment.html?id=207">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod">
+      <img src="images/p8.jpg" alt="Denim Shirt">
+      <div class="p-body">
+        <div style="font-weight:600">Denim Shirt</div>
+        <div class="p-row">
+          <div class="old">₹999</div>
+          <div class="new">₹799</div>
+        </div>
+        <div style="margin-top:auto" class="p-actions">
+          
+          <a class="btn btn-buy" href="payment.html?id=208">Buy Now</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="text-align:center;padding:18px 0;margin-top:20px;color:#666">© 2025 ARBAN.IN — All Rights Reserved</footer>
+
+</main>
+
+<script>
+/* ---------------- HERO SLIDER AUTO-MOVE (Option B) ---------------- */
+(function(){
+  const slidesWrap = document.getElementById('slides');
+  const slides = Array.from(slidesWrap.children);
+  const dotsWrap = document.getElementById('sliderDots');
+  let idx = 0, interval = 4200, timer = null;
+  // create dots
+  slides.forEach((s,i)=>{
+    const b = document.createElement('button');
+    b.setAttribute('aria-label','Go to slide ' + (i+1));
+    if(i===0) b.classList.add('active');
+    b.addEventListener('click', ()=>{ goto(i); resetTimer(); });
+    dotsWrap.appendChild(b);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function goto(i){
+    idx = i;
+    const x = -(100 * idx);
+    slidesWrap.style.transform = 'translateX(' + x + '%)';
+    dots.forEach(d=>d.classList.remove('active'));
+    dots[idx].classList.add('active');
+  }
+
+  function next(){
+    idx = (idx + 1) % slides.length;
+    goto(idx);
+  }
+  function resetTimer(){
+    clearInterval(timer);
+    timer = setInterval(next, interval);
+  }
+
+  // pause on hover
+  const hero = document.getElementById('heroSlider');
+  hero.addEventListener('mouseenter', ()=> clearInterval(timer));
+  hero.addEventListener('mouseleave', resetTimer);
+
+  resetTimer();
+})();
+
+/* ---------------- Featured cards clickable (open product detail) ------------- */
+function goDetail(id){
+  // clicking whole card goes to product detail
+  window.location.href = 'product-detail.html?id=' + encodeURIComponent(id);
+}
+
+/* ---------------- Ratings: store in localStorage & render ---------------- */
+(function(){
+  const defaultReviews = [
+    {id:'101', name:'Amit', stars:5, text:'Excellent quality — fabric feels premium.', avatar:'https://i.pravatar.cc/60?img=12'},
+    {id:'102', name:'Priya', stars:4, text:'Good fit, colour as shown.', avatar:'https://i.pravatar.cc/60?img=5'},
+    {id:'103', name:'Rohit', stars:5, text:'Fast delivery and top notch product.', avatar:'https://i.pravatar.cc/60?img=8'}
+  ];
+
+  // get reviews from localStorage or seed
+  function loadReviews(){
+    try{
+      const raw = localStorage.getItem('ARB_reviews_v1');
+      return raw ? JSON.parse(raw) : defaultReviews.slice();
+    }catch(e){ return defaultReviews.slice(); }
+  }
+  function saveReviews(revs){
+    localStorage.setItem('ARB_reviews_v1', JSON.stringify(revs));
+  }
+
+  function renderReviews(){
+    const list = document.getElementById('reviewsList');
+    list.innerHTML = '';
+    const revs = loadReviews();
+    revs.forEach(r=>{
+      const el = document.createElement('div');
+      el.className = 'review';
+      el.innerHTML = `
+        <img src="${r.avatar || 'https://i.pravatar.cc/60'}" alt="${r.name}">
+        <div>
+          <h4>${escapeHtml(r.name)}</h4>
+          <div class="meta">
+            <div class="star-row">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+            <div style="margin-top:6px">${escapeHtml(r.text || '')}</div>
+            <div class="small" style="margin-top:6px">Product ID: ${escapeHtml(r.id)}</div>
+          </div>
+        </div>
+      `;
+      list.appendChild(el);
+    });
+  }
+
+  // basic XSS-safe escape
+  function escapeHtml(s){ return String(s).replace(/[&<>"']/g, function
+    </script>
